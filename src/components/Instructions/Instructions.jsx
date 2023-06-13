@@ -1,9 +1,9 @@
 import "./Instructions.css"
 
-export function Instructions(props) {
+export function Instructions({prop}) {
   return (
     <aside className="instructions">
-      <p></p>
+      <p>{prop.instructions.start}</p>
     </aside>
   )
 }

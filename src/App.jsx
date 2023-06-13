@@ -1,6 +1,10 @@
 // IMPORT ANY NEEDED COMPONENTS HERE
 import { Dataset } from "./data/dataset"
 import "./App.css"
+import Chip from "./components/Chip/Chip"
+import { useState } from "react"
+import Header from "./components/Header/Header"
+import Instructions from "./components/Instructions/Instructions"
 
 // don't move this!
 export const appInfo = {
@@ -18,8 +22,14 @@ export const appInfo = {
 }
 // or this!
 
+
+
 export function App() {
   const { data, categories, restaurants } = Dataset.createDataSet()
+
+  const [curRestaurant, setRestaurant] = useState(null);
+  const [curCategory, setCategory] = useState(null)
+
 
   return (
     <main className="App">
@@ -27,21 +37,31 @@ export function App() {
       <div className="CategoriesColumn col">
         <div className="categories options">
           <h2 className="title">Categories</h2>
-          {/* YOUR CODE HERE */}
+
+              {categories.map((category, idx) => 
+                <Chip label={category}isActive = {curCategory === category} handleClick={()=> setCategory(category)} />
+              )}
+
         </div>
       </div>
 
       {/* MAIN COLUMN */}
       <div className="container">
-        {/* HEADER GOES HERE */}
+        <Header props={appInfo} />
 
         {/* RESTAURANTS ROW */}
         <div className="RestaurantsRow">
           <h2 className="title">Restaurants</h2>
-          <div className="restaurants options">{/* YOUR CODE HERE */}</div>
+          <div className="restaurants options">
+          {restaurants.map((restaurant, idx) => (
+                <Chip label={restaurant} isActive = {curRestaurant === restaurant} handleClick={() => setRestaurant(restaurant)}/>
+              ))}
+            {/*<Chip label="Hello" isActive={isActive} handleClick={()=> setIsActive(!isActive)} />*/}
+          </div>
+        
         </div>
 
-        {/* INSTRUCTIONS GO HERE */}
+        <Instructions prop={appInfo}/>
 
         {/* MENU DISPLAY */}
         <div className="MenuDisplay display">
